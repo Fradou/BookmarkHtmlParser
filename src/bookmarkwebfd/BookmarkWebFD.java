@@ -7,6 +7,7 @@ package bookmarkwebfd;
 
 import bookmarkwebfd.entity.HtmlLine;
 import bookmarkwebfd.resource.Constantes;
+import bookmarkwebfd.resource.HTag;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -34,42 +35,33 @@ public class BookmarkWebFD {
 
         LOGGER.addHandler(CSL_HANDLER);
         
-        LOGGER.log(Level.WARNING, "Ca marche");
         String pathApp = null;
         try {
             pathApp = new File(".").getCanonicalPath();
-            System.out.println("path : "+ pathApp);
-        } catch (IOException ex) {
-            Logger.getLogger(BookmarkWebFD.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    //    for(String browser : Constantes.JSON_PATH.keySet()){
-            
             String path = Constantes.PATH_FIREFOX.toString();
-        //    File bookmarks = new File(browser);
-            
-        //    StringBuilder bookmarks = new StringBuilder();
             try {
-                BufferedReader reader = new BufferedReader(new FileReader(path));
+                BufferedReader reader = new BufferedReader(new FileReader(pathApp + path));
                 String line = "";
                 List<HtmlLine> htmlLines = new ArrayList<HtmlLine>();
                 while((line = reader.readLine())!= null){
                     String hLine = line;
-                    String baliseStart = line.substring(0, 3);
-                    String balideEnd = line.substring(-4, -1);
-                    
-                    HtmlLine newLine = new HtmlLine(hLine, baliseStart, balideEnd);
+                    String beginTag = hLine.substring(0, 4);
+                    Boolean content = false;
+                    if(HTag.DT.equals(beginTag) || HTag.DD.equals(beginTag)){
+                        content = true;
+                    }
+                    HtmlLine newLine = new HtmlLine(hLine, beginTag, "","content");
                     htmlLines.add(newLine);
                 }
-                String patternStr =  "<p>";
-                Pattern pattern = Pattern.compile(patternStr);
-        //        String[] bookSplit = pattern.split(bookmarkHtml);
                 
-                System.out.println("1er block : ");
+                
+                
             }
             catch(Exception exception) {
                 LOGGER.log(Level.SEVERE, exception.toString(), exception);
             }
-            
+        } catch (IOException ex) {
+            LOGGER.log(Level.SEVERE, ex.toString(), ex);
+        }            
     }   
 }

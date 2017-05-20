@@ -15,6 +15,6 @@ import java.util.Map;
 public class Constantes {
     
     public static final Map<String, String> JSON_PATH = new HashMap<String, String>(){};
-    public static final String PATH_FIREFOX = "/home/alex/NetBeansProjects/BookmarkWebFD/src/bookmarkwebfd/resource/bookmarks.html";
+    public static final String PATH_FIREFOX = "/src/bookmarkwebfd/resource/bookmarks.html";
        
 }

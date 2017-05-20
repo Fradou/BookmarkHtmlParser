@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bookmarkwebfd.resource;
+package bookmarkwebfd.cfg;
 
 /**
  *
  * @author alex
  */
-public class Tag {
-    
+public enum lineType {
+    content, opener,closer, other,
 }
