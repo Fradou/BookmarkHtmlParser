@@ -5,7 +5,7 @@
  */
 package bookmarkwebfd.entity;
 
-import bookmarkwebfd.cfg.lineType;
+import bookmarkwebfd.cfg.ELineType;
 
 /**
  *
@@ -13,34 +13,45 @@ import bookmarkwebfd.cfg.lineType;
  */
 public class HtmlLine {
     
+    private int position;
     private String lineContent;
     private String lineTagStart;
     private String lineTagEnd;
+    private int depth;
     private Boolean content;
     private Boolean opener;
     private Boolean closer;
     private Boolean other;
    
-    public HtmlLine(String lineContent, String lineTagStart, String lineTagEnd, String type) {
+    public HtmlLine(int position, String lineContent, String lineTagStart, String lineTagEnd, String type) {
+        this.position = position;
         this.lineContent = lineContent;
         this.lineTagStart = lineTagStart;
         this.lineTagEnd = lineTagEnd;
+        this.depth = 0;
         
-        switch(lineType.valueOf(type)){
+        switch(ELineType.valueOf(type)){
             case content:
                 typesSetter();
                 this.content=true;
-            case other:
-                typesSetter();
-                this.other=true;
             case opener:
                 typesSetter();
                 this.opener=true;
             case closer:
                 typesSetter();
                 this.closer=true;
-        }
-        
+            default:
+                typesSetter();
+                this.other=true;
+        }   
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 
     public String getLineContent() {
@@ -72,6 +83,7 @@ public class HtmlLine {
     }
 
     public void setContent(Boolean content) {
+        typesSetter();
         this.content = content;
     }
 
@@ -80,6 +92,7 @@ public class HtmlLine {
     }
 
     public void setOpener(Boolean opener) {
+        typesSetter();
         this.opener = opener;
     }
 
@@ -88,6 +101,7 @@ public class HtmlLine {
     }
 
     public void setCloser(Boolean closer) {
+        typesSetter();
         this.closer = closer;
     }
 
@@ -96,7 +110,16 @@ public class HtmlLine {
     }
 
     public void setOther(Boolean other) {
+        typesSetter();
         this.other = other;
+    }
+
+    public int getDepth() {
+        return depth;
+    }
+
+    public void setDepth(int depth) {
+        this.depth = depth;
     }
     
     private void typesSetter(){
@@ -105,4 +128,5 @@ public class HtmlLine {
         this.closer=false;
         this.other=false;
     }
+    
 }

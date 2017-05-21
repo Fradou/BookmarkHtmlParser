@@ -9,6 +9,6 @@ package bookmarkwebfd.cfg;
  *
  * @author alex
  */
-public enum lineType {
+public enum ELineType {
     content, opener,closer, other,
 }
